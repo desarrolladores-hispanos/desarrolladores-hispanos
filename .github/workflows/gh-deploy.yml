@@ -1,0 +1,38 @@
+# From https://github.com/vivek9patel/vivek9patel.github.io
+name: Node.js CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Installing Packages
+        run: npm i
+      
+      - name: Building App
+        run: npm run build
+      
+      - name: Exporting Bundle Files 
+        run: npm run export
+      - run: touch ./out/.nojekyll
+
+      - name: Deploy to Github-Pages 
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
