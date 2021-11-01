@@ -15,9 +15,9 @@ const Main = (props) => {
   //console.log(props)
   const {
     name = "Not Fetched",
-    user,
-    twitter,
-    authorImage,
+    user = "Not Fetched",
+    twitter = "dh_rblx",
+    authorImage = "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
     banner = "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
     bio = [],
   } = props;

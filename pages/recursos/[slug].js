@@ -22,12 +22,12 @@ function urlFor(source) {
 const Article = (props) => {
   //console.log(props)
   const {
-    title = "Missing title",
-    name = "Missing name",
-    user,
-    publishedAt,
-    twitter,
-    authorImage,
+    title = "Not Fetched",
+    name = "Not fetched",
+    user = "Not Fetched",
+    publishedAt = "2021-01-01",
+    twitter = "dh_rblx",
+    authorImage = "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
     banner = "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
     body = [],
   } = props;
