@@ -8,14 +8,17 @@ import {
   Link,
   SlideFade,
 } from "@chakra-ui/react";
+import Head from "next/head";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 
 export default function Custom404() {
   return (
     <>
+      <Head>
+        <title>¡500!</title>
+      </Head>
       <NavBar />
-
       <Stack
         as="main"
         spacing={50}
