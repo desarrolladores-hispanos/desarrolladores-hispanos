@@ -3,9 +3,10 @@ import imageUrlBuilder from "@sanity/image-url";
 import React from "react";
 import client from "../../public/client.js";
 import NavBar from "../../components/NavBar";
-import ABCD from "../../components/abcd2";
-import Postt from "../../components/post";
-import { Divider, Stack, Container, Text, Heading } from "@chakra-ui/react";
+import Head from "next/head";
+import Profile from "../../components/ProfileSmall";
+import Post from "../../components/PostBody";
+import { Divider, Stack, Container, Text, SlideFade, Heading } from "@chakra-ui/react";
 
 var options = {
   weekday: "long",
@@ -18,7 +19,7 @@ function urlFor(source) {
   return imageUrlBuilder(client).image(source);
 }
 
-const Post = (props) => {
+const Article = (props) => {
   //console.log(props)
   const {
     title = "Missing title",
@@ -28,61 +29,69 @@ const Post = (props) => {
     twitter,
     categories,
     authorImage,
-    banner,
+    banner = "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg",
     body = [],
   } = props;
   return (
     <>
-      <NavBar />
-
-      <Container maxW={"100%"}>
-        <Container maxW={"4xl"} h={{ base: "150%", lg: "50vh" }}>
-          <Stack
-            align={"left"}
-            spacing={{ base: 5, md: 5 }}
-            py={{ base: 10, md: 35 }}
-          >
-            <Heading
-              fontWeight={700}
-              fontSize={{ base: "4xl", md: "5xl" }}
-              color={"white"}
-              pl={"5"}
-              lineHeight={"100%"}
+      <Head>
+        <title>{title} - Blog</title>
+      </Head>
+      <SlideFade
+        direction="top"
+        in={true}
+        transition={{ enter: { duration: 0.4, delay: 0.4 } }}
+      >
+        <NavBar />
+        <Container maxW={"100%"}>
+          <Container maxW={"4xl"} h={{ base: "150%", lg: "50vh" }}>
+            <Stack
+              align={"left"}
+              spacing={{ base: 5, md: 5 }}
+              py={{ base: 10, md: 35 }}
             >
-              {title}
-            </Heading>
+              <Heading
+                fontWeight={700}
+                fontSize={{ base: "4xl", md: "5xl" }}
+                color={"white"}
+                pl={"5"}
+                lineHeight={"100%"}
+              >
+                {title}
+              </Heading>
 
-            <Text color={"gray.400"} pl={"5"}>
-              Publicado el{" "}
-              {new Date(publishedAt).toLocaleDateString("es-MX", options)}
-            </Text>
+              <Text color={"gray.400"} pl={"5"}>
+                Publicado el{" "}
+                {new Date(publishedAt).toLocaleDateString("es-MX", options)}
+              </Text>
 
-            <Divider orientation="horizontal" />
+              <Divider orientation="horizontal" />
 
-            <Postt content={body} />
+              <Post content={body} />
 
-            <Divider orientation="horizontal" />
+              <Divider orientation="horizontal" />
 
-            <Heading
-              fontWeight={500}
-              fontSize={{ base: "2xl", md: "3xl" }}
-              color={"white"}
-              lineHeight={"80%"}
-              pl={"5"}
-            >
-              Autor
-            </Heading>
+              <Heading
+                fontWeight={500}
+                fontSize={{ base: "2xl", md: "3xl" }}
+                color={"white"}
+                lineHeight={"80%"}
+                pl={"5"}
+              >
+                Autor
+              </Heading>
 
-            <ABCD
-              name={name}
-              username={user}
-              twitter={twitter}
-              banner={urlFor(banner)}
-              authorImage={urlFor(authorImage)}
-            />
-          </Stack>
+              <Profile
+                name={name}
+                username={user}
+                twitter={twitter}
+                banner={urlFor(banner)}
+                authorImage={urlFor(authorImage)}
+              />
+            </Stack>
+          </Container>
         </Container>
-      </Container>
+      </SlideFade>
     </>
   );
 };
@@ -99,9 +108,9 @@ const query = groq`*[_type == "post" && slug.current == $slug][0]{
   body
 }`;
 
-Post.getInitialProps = async function (context) {
+Article.getInitialProps = async function (context) {
   const { slug = "" } = context.query;
   return await client.fetch(query, { slug });
 };
 
-export default Post;
+export default Article;

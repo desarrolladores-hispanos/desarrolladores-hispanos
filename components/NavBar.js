@@ -79,19 +79,7 @@ const Buttons = () => {
             </NextLink>
           ))}
 
-          <NextLink href="https://discord.gg/5SvpxQMkUH" passHref key=" ">
-            <Button
-              leftIcon={<FaDiscord />}
-              as="a"
-              variant="solid"
-              mx="3"
-              aria-label="Discord"
-              bgGradient="linear(to-b, #5865f2, #7782FF)"
-              boxShadow={"0 5px 20px 0px rgb(88 101 242 / 43%)"}
-            >
-              Discord
-            </Button>
-          </NextLink>
+          <DiscordAlert />
         </List>
 
         {/* Barras Movil */}
@@ -150,6 +138,60 @@ const Buttons = () => {
         </Flex>
       </Flex>
     </Box>
+  );
+};
+
+const DiscordAlert = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = useRef();
+
+  return (
+    <>
+
+      <Button
+        leftIcon={<FaDiscord />}
+        as="a"
+        variant="solid"
+        mx="3"
+        aria-label="Discord"
+        bgGradient="linear(to-b, #5865f2, #7782FF)"
+        boxShadow={"0 5px 20px 0px rgb(88 101 242 / 43%)"}
+        onClick={() => setIsOpen(true)}
+      >
+        Discord
+      </Button>
+
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered={true}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Redirección externa
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              ¿Estas seguro de que quieres dirigirte a Discord.gg?
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancelar
+              </Button>
+              <NextLink href="https://discord.gg/5SvpxQMkUH" passHref key=" ">
+                <Button colorScheme="green" ml={3}>
+                  Estoy Seguro
+                </Button>
+              </NextLink>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </>
   );
 };
 
@@ -221,7 +263,7 @@ export const NavBar = () => (
           status="warning"
         >
           <AlertIcon />
-          Nuestra página aún se encuentra en construcción
+          Nuestra página se encuentra en mantenimiento y construcción
         </Alert>
       </Box>
       <Box as="header" boxShadow="md" bg="gray.900">

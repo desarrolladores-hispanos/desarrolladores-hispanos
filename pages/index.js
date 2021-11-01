@@ -6,6 +6,9 @@ function Index(props) {
   const { posts = [] } = props;
   return (
     <>
+    <Head>
+      <title>Desarrolladores Hispanos</title>
+    </Head>
       <NavBar />
       <Section1 />
     </>

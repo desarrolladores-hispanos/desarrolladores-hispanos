@@ -8,8 +8,6 @@ import {
   Link,
   chakra,
   Heading,
-  useColorModeValue,
-  Spinner,
   Code,
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -57,7 +55,7 @@ export default function PostBody({ content }) {
           )}
         </Highlight>
       ),
-      sanityImage: (props) => (
+      sanityImage: (props) => {
         <Box py="1">
           <Image
             src={urlFor(props.node.asset).auto("format").fit("scale").url()}
@@ -66,7 +64,7 @@ export default function PostBody({ content }) {
             height={props.node.dimensions.height}
           />
         </Box>
-      ),
+      },
 
       block(props) {
         switch (props.node.style) {
@@ -124,7 +122,7 @@ export default function PostBody({ content }) {
     },
 
     marks: {
-      code: (mark) => <Code children={mark.children} />,
+      code: (mark) => { <Code>{mark.children}</Code> },
       link: ({ mark, children }) => {
         const { blank, href, own } = mark;
         if (blank) {

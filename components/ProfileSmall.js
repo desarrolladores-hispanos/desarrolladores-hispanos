@@ -3,38 +3,31 @@ import {
   Avatar,
   Box,
   Text,
-  Stack,
-  IconButton,
   Link,
   Image,
   Flex,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
-import BlockContent from "@sanity/block-content-to-react";
-import { FaTwitter } from "react-icons/fa";
-import client from "../public/client.js";
 
-export default function SocialProfileSimple(props) {
+export default function ProfileSmall(props) {
   return (
     <>
       <Box
         maxW={"350px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={"gray.900"}
         boxShadow={"2xl"}
         rounded={"lg"}
-        //  p={6}
-        // textAlign={'center'}
+      //  p={6}
+      // textAlign={'center'}
       >
         <Image
           rounded={"lg"}
           h={"100px"}
           w={"full"}
+          alt={""}
           boxShadow={"2xl"}
           src={
-            props.banner ||
-            "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            props.banner
           }
           objectFit={"cover"}
         />
@@ -45,13 +38,13 @@ export default function SocialProfileSimple(props) {
             src={props.authorImage}
             pos={"relative"}
             css={{
-              border: "5px solid #18191C",
+              border: "5px solid #171923",
             }}
           />
         </Flex>
 
         <Box width={"80%"} ml="7">
-          <Link href={"/profile"}>
+          <Link href={`/u/${props.username}`}>
             <Heading fontSize={"xl"} fontFamily={"body"}>
               {props.name}
             </Heading>
